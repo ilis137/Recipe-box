@@ -112,7 +112,9 @@ class App extends Component {
     currentRecipe: null
   };
 
-  handleSearch = e => {};
+  handleSearch = e => {
+    this.setState({ currentRecipe: e.target.value });
+  };
 
   render() {
     return (
