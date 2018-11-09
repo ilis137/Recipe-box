@@ -5,7 +5,7 @@ const Recipe = props => {
   return (
     <div>
       <div>
-        <h2 className="title">{props.title}</h2>
+        <h2 className="title">{props.recipe.title}</h2>
         <i />
       </div>
       <div>
