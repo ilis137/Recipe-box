@@ -24,7 +24,7 @@ const recipeIndex = [
     ]
   },
   {
-    title: "Garlic Chicken",
+    title: "Garlic-Chicken",
     ingredients: [
       "3 tablespoons butter",
       "1 teaspoon seasoning salt",
@@ -39,7 +39,7 @@ const recipeIndex = [
     ]
   },
   {
-    title: "Easy Chocolate Pie",
+    title: "Easy-Chocolate-Pie",
     ingredients: [
       "1 (12 ounce) can evaporated milk",
       "1 (5.9 ounce) package chocolate instant pudding mix",
@@ -55,7 +55,7 @@ const recipeIndex = [
     ]
   },
   {
-    title: "Lime Chicken Tacos",
+    title: "Lime-Chicken-Tacos",
     ingredients: [
       "1 1/2 pounds skinless, boneless chicken breast meat - cubed",
       "1/8 cup red wine vinegar",
@@ -78,7 +78,7 @@ const recipeIndex = [
     ]
   },
   {
-    title: "Artichoke Dip",
+    title: "Artichoke-Dip",
     ingredients: [
       "1 8oz package soft cream cheese",
       "4oz mayonnaise",
@@ -109,7 +109,7 @@ if (localStorage.getItem(LSK) == null) {
 class App extends Component {
   state = {
     recipes: JSON.parse(localStorage.getItem(LSK)),
-    currentRecipe: null
+    currentRecipe: "Artichoke-Pasta"
   };
 
   handleSearch = e => {
@@ -117,10 +117,14 @@ class App extends Component {
   };
 
   render() {
+    const currentRecipe = this.state.recipes.find(el => {
+      return el.title === this.state.currentRecipe.replace(/ /g, "-");
+    });
+    console.log(currentRecipe);
     return (
       <div className="App">
         <Search hitSearch={this.handleSearch} recipes={this.state.recipes} />
-        <Recipe />
+        <Recipe recipe={currentRecipe} />
       </div>
     );
   }
