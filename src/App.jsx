@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Recipe from "./components/Recipe/Recipe";
+import Recipe from "./components/Recipe/RecipePane";
 import Search from "./components/Search/Search";
 import "./App.css";
 
