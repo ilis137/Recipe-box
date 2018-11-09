@@ -108,7 +108,8 @@ if (localStorage.getItem(LSK) == null) {
 }
 class App extends Component {
   state = {
-    recipes: JSON.parse(localStorage.getItem(LSK))
+    recipes: JSON.parse(localStorage.getItem(LSK)),
+    currentRecipe: null
   };
 
   handleSearch = e => {};
