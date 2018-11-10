@@ -1,8 +1,12 @@
 import React from "react";
 const Search = props => {
   console.log(props.recipes[1]);
-  const items = props.recipes.map(item => (
-    <option value={item.title.replace("-", " ")}>
+  const items = props.recipes.map((item, index) => (
+    <option
+      key={index}
+      value={item.title.replace(/-/g, " ")}
+      selected={index === 1 ? true : false}
+    >
       {item.title.replace(/-/g, " ")}
     </option>
   ));
