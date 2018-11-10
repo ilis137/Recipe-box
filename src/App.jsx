@@ -3,6 +3,7 @@ import RecipePane from "./components/Recipe/RecipePane";
 import Search from "./components/Search/Search";
 import "./App.css";
 import styled from "styled-components";
+
 const LSK = "recipe_box_key";
 const recipeIndex = [
   {
@@ -110,11 +111,11 @@ if (localStorage.getItem(LSK) == null) {
 const StyledApp = styled.div`
   width: 500px;
   margin: 10px auto;
-  box-shadow:0 2px 3px #ccc;
+  box-shadow:0 4px 5px #ccc;
   border:solid 1px ##bbdefb
   padding:10px;
   box-sizing:border-box;
-  background:#90caf9;
+  background:#90caf9;border-radius: 5px;
 `;
 const StyledSearch = styled(Search)`
   width: 100%;
