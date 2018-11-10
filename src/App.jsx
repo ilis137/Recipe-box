@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Recipe from "./components/Recipe/RecipePane";
+import RecipePane from "./components/Recipe/RecipePane";
 import Search from "./components/Search/Search";
 import "./App.css";
-
+import styled from "styled-components";
 const LSK = "recipe_box_key";
 const recipeIndex = [
   {
@@ -106,6 +106,26 @@ const recipeIndex = [
 if (localStorage.getItem(LSK) == null) {
   localStorage.setItem(LSK, JSON.stringify(recipeIndex));
 }
+
+const StyledApp = styled.div`
+  width: 500px;
+  margin: 10px auto;
+  box-shadow:0 2px 3px #ccc;
+  border:solid 1px ##bbdefb
+  padding:10px;
+  box-sizing:border-box;
+  background:#90caf9;
+`;
+const StyledSearch = styled(Search)`
+  width: 100%;
+  height: 30px;
+  border-radius: 5px;
+  outline: none;
+  background: #e3f2fd;
+  color:#b71c1c;
+  }
+`;
+
 class App extends Component {
   state = {
     recipes: JSON.parse(localStorage.getItem(LSK)),
@@ -122,10 +142,13 @@ class App extends Component {
     });
     console.log(currentRecipe);
     return (
-      <div className="App">
-        <Search hitSearch={this.handleSearch} recipes={this.state.recipes} />
-        <Recipe recipe={currentRecipe} />
-      </div>
+      <StyledApp>
+        <StyledSearch
+          hitSearch={this.handleSearch}
+          recipes={this.state.recipes}
+        />
+        <RecipePane recipe={currentRecipe} />
+      </StyledApp>
     );
   }
 }
