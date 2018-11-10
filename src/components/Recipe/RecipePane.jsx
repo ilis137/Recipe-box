@@ -1,7 +1,11 @@
 import React from "react";
 const Recipe = props => {
-  const directions = props.recipe.directions.map(el => <li>{el}</li>);
-  const ingredients = props.recipe.ingredients.map(el => <li>{el}</li>);
+  const directions = props.recipe.directions.map((el, i) => (
+    <li key={i}>{el}</li>
+  ));
+  const ingredients = props.recipe.ingredients.map((el, i) => (
+    <li key={i}>{el}</li>
+  ));
   return (
     <div>
       <div>
