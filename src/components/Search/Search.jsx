@@ -13,7 +13,7 @@ const Search = props => {
   return (
     <form className="SelectRecipe" onChange={e => props.hitSearch(e)}>
       <label htmlFor="recipeName" />
-      <select name="recipeName" id="recipeName">
+      <select className={props.className} name="recipeName" id="recipeName">
         {items}
       </select>
     </form>
