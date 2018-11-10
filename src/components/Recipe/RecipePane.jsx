@@ -9,10 +9,12 @@ const StyledTitle = styled.h2`
 const StyledSubTitle = styled.h4`
   font-size: 24px;
   color: #b71c1c;
+  margin: 3px 0;
 `;
 const StyledPoints = styled.li`
   color: #0097a7;
   font-size: 18px;
+  margin: 5px 0;
 `;
 const RecipePane = props => {
   const directions = props.recipe.directions.map((el, i) => (
@@ -24,8 +26,8 @@ const RecipePane = props => {
   return (
     <div>
       <div>
-        <StyledTitle>{props.recipe.title}</StyledTitle>
-        <i />
+        <StyledTitle>{props.recipe.title.replace(/-/g, " ")}</StyledTitle>
+        <FaEdit />
       </div>
       <div>
         <StyledSubTitle>Ingredients:</StyledSubTitle>
