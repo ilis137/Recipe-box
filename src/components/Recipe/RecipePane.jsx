@@ -1,8 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
+const StyledHeading = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const StyledTitle = styled.h2`
   text-align: center;
+  justify-self: center;
   font-size: 36px;
   color: #b71c1c;
 `;
@@ -16,6 +24,7 @@ const StyledPoints = styled.li`
   font-size: 18px;
   margin: 5px 0;
 `;
+
 const RecipePane = props => {
   const directions = props.recipe.directions.map((el, i) => (
     <StyledPoints key={i}>{el}</StyledPoints>
@@ -25,10 +34,10 @@ const RecipePane = props => {
   ));
   return (
     <div>
-      <div>
+      <StyledHeading>
         <StyledTitle>{props.recipe.title.replace(/-/g, " ")}</StyledTitle>
-        <FaEdit />
-      </div>
+        <FontAwesomeIcon icon={faEdit} />
+      </StyledHeading>
       <div>
         <StyledSubTitle>Ingredients:</StyledSubTitle>
         <p className="ingredients">{ingredients}</p>
