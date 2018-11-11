@@ -12,12 +12,15 @@ const StyledModal = styled.div`
   box-shadow: 1px 1px 1px #888;
   z-index: 200;
   position: fixed;
-  padding: 16px;
   left: calc(50% - 300px);
   top: 15%;
   transition: all 0.3s ease-out;
   transform: ${props => (props.show ? "translate(0)" : "translateY(-100vh)")};
   opacity: ${props => (props.show ? "1" : "0")};
+  @media (max-width: 600px) {
+    width: 70%;
+    left: 15%;
+  }
 `;
 
 const Modal = props => {

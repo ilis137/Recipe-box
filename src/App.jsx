@@ -120,6 +120,9 @@ const StyledApp = styled.div`
   background:#90caf9;
   border-radius: 5px;
   z-index:20;
+  @media (max-width: 600px) {
+    width: 80%;
+  }
 `;
 const StyledSearch = styled(Search)`
   width: 100%;
