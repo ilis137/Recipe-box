@@ -2,17 +2,26 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 
-const StyledHeading = styled.div`
+const StyledIconBar = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+
+  margin-top: 8px;
+`;
+const StyledIcon = styled.div`
+  color: #b71c1c;
+  font-size: 28px;
+  padding: 5px;
 `;
 const StyledTitle = styled.h2`
   text-align: center;
-  justify-self: center;
   font-size: 36px;
   color: #b71c1c;
+  margin: 5px 0;
 `;
 const StyledSubTitle = styled.h4`
   font-size: 24px;
@@ -34,16 +43,26 @@ const RecipePane = props => {
   ));
   return (
     <div>
-      <StyledHeading>
+      <StyledIcon>
+        <FontAwesomeIcon icon={faPlusSquare} />
+      </StyledIcon>
+      <div>
         <StyledTitle>{props.recipe.title.replace(/-/g, " ")}</StyledTitle>
-        <FontAwesomeIcon icon={faEdit} />
-      </StyledHeading>
+      </div>
       <div>
         <StyledSubTitle>Ingredients:</StyledSubTitle>
         <p className="ingredients">{ingredients}</p>
         <StyledSubTitle>Directions:</StyledSubTitle>
         <p className="directions">{directions}</p>
       </div>
+      <StyledIconBar>
+        <StyledIcon>
+          <FontAwesomeIcon icon={faTrashAlt} />
+        </StyledIcon>
+        <StyledIcon>
+          <FontAwesomeIcon icon={faEdit} />
+        </StyledIcon>
+      </StyledIconBar>
     </div>
   );
 };
