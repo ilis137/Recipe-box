@@ -9,7 +9,6 @@ const StyledIconBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   margin-top: 8px;
 `;
 const StyledIcon = styled.div`
@@ -35,34 +34,44 @@ const StyledPoints = styled.li`
 `;
 
 const RecipePane = props => {
-  const directions = props.recipe.directions.map((el, i) => (
-    <StyledPoints key={i}>{el}</StyledPoints>
-  ));
-  const ingredients = props.recipe.ingredients.map((el, i) => (
-    <StyledPoints key={i}>{el}</StyledPoints>
-  ));
+  let recipe = "";
+  if (props.recipe) {
+    recipe = (
+      <>
+        <div>
+          <StyledTitle>{props.recipe.title.replace(/-/g, " ")}</StyledTitle>
+        </div>
+        <div>
+          <StyledSubTitle>Ingredients:</StyledSubTitle>
+          <p className="ingredients">
+            {props.recipe.ingredients.map((el, i) => (
+              <StyledPoints key={i}>{el}</StyledPoints>
+            ))}
+          </p>
+          <StyledSubTitle>Directions:</StyledSubTitle>
+          <p className="directions">
+            {props.recipe.directions.map((el, i) => (
+              <StyledPoints key={i}>{el}</StyledPoints>
+            ))}
+          </p>
+        </div>
+        <StyledIconBar>
+          <StyledIcon>
+            <FontAwesomeIcon icon={faTrashAlt} onClick={props.delete} />
+          </StyledIcon>
+          <StyledIcon>
+            <FontAwesomeIcon icon={faEdit} onClick={props.edit} />
+          </StyledIcon>
+        </StyledIconBar>
+      </>
+    );
+  }
   return (
     <div>
       <StyledIcon>
         <FontAwesomeIcon icon={faPlusSquare} />
       </StyledIcon>
-      <div>
-        <StyledTitle>{props.recipe.title.replace(/-/g, " ")}</StyledTitle>
-      </div>
-      <div>
-        <StyledSubTitle>Ingredients:</StyledSubTitle>
-        <p className="ingredients">{ingredients}</p>
-        <StyledSubTitle>Directions:</StyledSubTitle>
-        <p className="directions">{directions}</p>
-      </div>
-      <StyledIconBar>
-        <StyledIcon>
-          <FontAwesomeIcon icon={faTrashAlt} />
-        </StyledIcon>
-        <StyledIcon>
-          <FontAwesomeIcon icon={faEdit} />
-        </StyledIcon>
-      </StyledIconBar>
+      {recipe}
     </div>
   );
 };
