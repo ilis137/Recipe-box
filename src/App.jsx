@@ -3,7 +3,8 @@ import RecipePane from "./components/Recipe/RecipePane";
 import Search from "./components/Search/Search";
 import "./App.css";
 import styled from "styled-components";
-import Modal from "./components/Modal/Modal"
+import Modal from "./components/Modal/Modal";
+import BackDrop from "./components/BackDrop/BackDrop";
 
 const LSK = "recipe_box_key";
 const recipeIndex = [
@@ -118,6 +119,7 @@ const StyledApp = styled.div`
   box-sizing:border-box;
   background:#90caf9;
   border-radius: 5px;
+  z-index:20;
 `;
 const StyledSearch = styled(Search)`
   width: 100%;
@@ -140,7 +142,11 @@ class App extends Component {
     this.setState({ currentRecipe: e.target.value });
   };
 
-
+  handleEdit = () => {
+    this.setState(prevstate => {
+      return { showModal: !prevstate.showModal };
+    });
+  };
 
   handleDeleteRecipe = e => {
     const recipes = this.state.recipes.filter(recipe => {
@@ -150,7 +156,6 @@ class App extends Component {
       recipes
     });
     localStorage.setItem(LSK, JSON.stringify(recipes));
-
   };
 
   render() {
@@ -160,13 +165,18 @@ class App extends Component {
     console.log(currentRecipe);
     return (
       <>
+        {/* <BackDrop show={this.state.showModal} />*/}
         {/* <BackDrop/>*/} <Modal show={this.state.showModal} />
         <StyledApp>
           <StyledSearch
             hitSearch={this.handleSearch}
             recipes={this.state.recipes}
           />
-          <RecipePane recipe={currentRecipe} delete={this.handleDeleteRecipe} />
+          <RecipePane
+            recipe={currentRecipe}
+            delete={this.handleDeleteRecipe}
+            edit={this.handleEdit}
+          />
         </StyledApp>
       </>
     );
