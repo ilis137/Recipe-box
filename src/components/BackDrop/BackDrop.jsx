@@ -9,7 +9,7 @@ const StyledBackDrop = styled.div`
   background-color: #333;
   top: 0;
   left: 0;
-  transition: all 0.3s ease-out;
+
   transform: ${props => (props.show ? "translate(0)" : "translateY(-100vh)")};
   opacity: ${props => (props.show ? "0.5" : "0")};
 `;
