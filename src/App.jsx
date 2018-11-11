@@ -157,7 +157,11 @@ class App extends Component {
     });
     localStorage.setItem(LSK, JSON.stringify(recipes));
   };
-
+  handleCanceled = () => {
+    this.setState(prevstate => {
+      return { showModal: !prevstate.showModal };
+    });
+  };
   render() {
     const currentRecipe = this.state.recipes.find(el => {
       return el.title === this.state.currentRecipe.replace(/ /g, "-");
@@ -165,7 +169,7 @@ class App extends Component {
     console.log(currentRecipe);
     return (
       <>
-        {/* <BackDrop show={this.state.showModal} />*/}
+        <BackDrop show={this.state.showModal} canceled={this.handleCanceled} />
         {/* <BackDrop/>*/} <Modal show={this.state.showModal} />
         <StyledApp>
           <StyledSearch
