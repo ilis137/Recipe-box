@@ -5,6 +5,7 @@ import "./App.css";
 import styled from "styled-components";
 import Modal from "./components/Modal/Modal";
 import BackDrop from "./components/BackDrop/BackDrop";
+import EditPane from "./components/EditPane/EditPane";
 
 const LSK = "recipe_box_key";
 const recipeIndex = [
@@ -110,6 +111,13 @@ if (localStorage.getItem(LSK) == null) {
   localStorage.setItem(LSK, JSON.stringify(recipeIndex));
 }
 
+const StyledTitle = styled.h1`
+  text-align: center;
+  font-size: 42px;
+  color: #b71c1c;
+  margin: 5px 0;
+`;
+
 const StyledApp = styled.div`
   width: 500px;
   margin: 10px auto;
@@ -145,15 +153,22 @@ class App extends Component {
     this.setState({ currentRecipe: e.target.value });
   };
 
-  handleEdit = () => {
+  handleClickedEdit = () => {
     this.setState(prevstate => {
       return { showModal: !prevstate.showModal };
     });
-  };
 
+    const selectedRecipe = this.state.recipes.find(recipe => {
+      return recipe.title === this.state.currentRecipe.replace(/ /g, "-");
+    });
+    console.log(selectedRecipe);
+    this.modalContent = <EditPane recipe={selectedRecipe} />;
+  };
   handleDeleteRecipe = e => {
+    console.log(this.state.currentRecipe);
     const recipes = this.state.recipes.filter(recipe => {
-      return recipe.title !== this.state.currentRecipe;
+      console.log(recipe.title);
+      return recipe.title.replace(/-/g, " ") !== this.state.currentRecipe;
     });
     this.setState({
       recipes
@@ -169,12 +184,14 @@ class App extends Component {
     const currentRecipe = this.state.recipes.find(el => {
       return el.title === this.state.currentRecipe.replace(/ /g, "-");
     });
-    console.log(currentRecipe);
+
     return (
       <>
         <BackDrop show={this.state.showModal} canceled={this.handleCanceled} />
-        {/* <BackDrop/>*/} <Modal show={this.state.showModal} />
+        <Modal show={this.state.showModal}>{this.modalContent}</Modal>
+
         <StyledApp>
+          <StyledTitle>Recipe Box</StyledTitle>
           <StyledSearch
             hitSearch={this.handleSearch}
             recipes={this.state.recipes}
@@ -182,7 +199,7 @@ class App extends Component {
           <RecipePane
             recipe={currentRecipe}
             delete={this.handleDeleteRecipe}
-            edit={this.handleEdit}
+            edit={this.handleClickedEdit}
           />
         </StyledApp>
       </>
