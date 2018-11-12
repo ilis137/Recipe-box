@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { noAuto } from "@fortawesome/fontawesome-svg-core";
 
 const StyledInput = styled.input`
   width: 90%;
@@ -32,13 +31,13 @@ const EditPane = props => {
   return (
     <div>
       <StyledTitle>Title</StyledTitle>
-      <StyledTitleInput type="text" value={props.recipe.title} />
+      <StyledTitleInput type="text" defaultValue={props.recipe.title} />
       <StyledTitle>ingredients</StyledTitle>
       {props.recipe.ingredients.map((ingredient, i) => {
         return (
           <InputContainer key={i + 1}>
             <span>{i + 1}. </span>
-            <StyledInput type="text" value={ingredient} />
+            <StyledInput type="text" defaultValue={ingredient} />
           </InputContainer>
         );
       })}
@@ -47,7 +46,7 @@ const EditPane = props => {
         return (
           <InputContainer key={i + 1}>
             <span>{i > 10 ? i + 1 + ". " : i + 1 + ".            "} </span>
-            <StyledInput type="text" value={direction} />
+            <StyledInput type="text" defaultValue={direction} />
           </InputContainer>
         );
       })}
