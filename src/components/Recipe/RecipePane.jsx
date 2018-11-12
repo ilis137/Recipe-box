@@ -15,6 +15,12 @@ const StyledIcon = styled.div`
   color: #b71c1c;
   font-size: 28px;
   padding: 5px;
+  transition: all 0.3s ease-out;
+
+  :hover {
+    cursor: pointer;
+    color: #ef5350;
+  }
 `;
 const StyledTitle = styled.h2`
   text-align: center;
