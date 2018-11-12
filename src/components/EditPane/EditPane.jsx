@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { noAuto } from "@fortawesome/fontawesome-svg-core";
 
 const StyledInput = styled.input`
   width: 90%;
@@ -50,6 +51,47 @@ const EditPane = props => {
           </InputContainer>
         );
       })}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "5px 0",
+          width: "80%",
+          margin: "0 auto"
+        }}
+      >
+        <button
+          style={{
+            backgroundColor: "#d9534f",
+            fontWeight: "bold",
+            border: "1px solid #d43f3a",
+            cursor: "pointer",
+            outline: "none",
+            borderRadius: "10px",
+            fontSize: "20px",
+            padding: "5px 15px",
+            color: "white",
+            marginRight: "10px"
+          }}
+        >
+          DELETE
+        </button>
+        <button
+          style={{
+            backgroundColor: "#5cb85c",
+            fontWeight: "bold",
+            border: "1px solid #4cae4c",
+            cursor: "pointer",
+            outline: "none",
+            borderRadius: "10px",
+            fontSize: "20px",
+            padding: "5px 15px",
+            color: "white"
+          }}
+        >
+          EDIT
+        </button>
+      </div>
     </div>
   );
 };
