@@ -75,7 +75,7 @@ const RecipePane = props => {
   return (
     <div>
       <StyledIcon>
-        <FontAwesomeIcon icon={faPlusSquare} />
+        <FontAwesomeIcon icon={faPlusSquare} onClick={props.addRecipe} />
       </StyledIcon>
       {recipe}
     </div>
