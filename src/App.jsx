@@ -161,13 +161,18 @@ class App extends Component {
     const selectedRecipe = this.state.recipes.find(recipe => {
       return recipe.title === this.state.currentRecipe.replace(/ /g, "-");
     });
-    console.log(selectedRecipe);
-    this.modalContent = <EditPane recipe={selectedRecipe} />;
+
+    this.modalContent = (
+      <EditPane
+        recipe={selectedRecipe}
+        edit={this.handleEdit}
+        cancel={this.handleCanceled}
+      />
+    );
   };
+
   handleDeleteRecipe = e => {
-    console.log(this.state.currentRecipe);
     const recipes = this.state.recipes.filter(recipe => {
-      console.log(recipe.title);
       return recipe.title.replace(/-/g, " ") !== this.state.currentRecipe;
     });
     this.setState({
@@ -175,6 +180,46 @@ class App extends Component {
     });
     localStorage.setItem(LSK, JSON.stringify(recipes));
   };
+
+  handleEdit = () => {
+    let ingredientsList = Array.from(
+      document.querySelectorAll(".editIngredients")
+    );
+    const ingredients = ingredientsList.map(ingredient => {
+      return ingredient.value;
+    });
+
+    let directionsList = Array.from(
+      document.querySelectorAll(".editDirections")
+    );
+
+    const directions = directionsList.map(direction => {
+      return direction.value;
+    });
+
+    const selectedRecipe = this.state.recipes.find(recipe => {
+      return recipe.title === this.state.currentRecipe.replace(/ /g, "-");
+    });
+    selectedRecipe.ingredients = ingredients;
+    selectedRecipe.directions = directions;
+    let updatedRecipes = [];
+
+    this.state.recipes.forEach(recipe => {
+      if (recipe.title === this.state.currentRecipe.replace(/ /g, "-")) {
+        updatedRecipes.push(selectedRecipe);
+      } else {
+        updatedRecipes.push(recipe);
+      }
+    });
+    const showModal = !this.state.showModal;
+    this.setState({
+      ...this.state,
+      recipes: updatedRecipes,
+      showModal
+    });
+    localStorage.setItem(LSK, JSON.stringify(updatedRecipes));
+  };
+
   handleCanceled = () => {
     this.setState(prevstate => {
       return { showModal: !prevstate.showModal };
