@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Modal from "./components/Modal/Modal";
 import BackDrop from "./components/BackDrop/BackDrop";
 import EditPane from "./components/EditPane/EditPane";
+import AddPane from "./components/AddPane/AddPane";
 
 const LSK = "recipe_box_key";
 const recipeIndex = [
@@ -153,6 +154,16 @@ class App extends Component {
     this.setState({ currentRecipe: e.target.value });
   };
 
+  handleClickedAdd = () => {
+    this.setState(prevstate => {
+      return { showModal: !prevstate.showModal };
+    });
+
+    this.modalContent = (
+      <AddPane add={this.handleAdd} cancel={this.handleCanceled} />
+    );
+  };
+
   handleClickedEdit = () => {
     this.setState(prevstate => {
       return { showModal: !prevstate.showModal };
@@ -170,7 +181,6 @@ class App extends Component {
       />
     );
   };
-
   handleDeleteRecipe = e => {
     const recipes = this.state.recipes.filter(recipe => {
       return recipe.title.replace(/-/g, " ") !== this.state.currentRecipe;
@@ -245,6 +255,7 @@ class App extends Component {
             recipe={currentRecipe}
             delete={this.handleDeleteRecipe}
             edit={this.handleClickedEdit}
+            addRecipe={this.handleClickedAdd}
           />
         </StyledApp>
       </>
