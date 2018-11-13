@@ -37,7 +37,11 @@ const EditPane = props => {
         return (
           <InputContainer key={i + 1}>
             <span>{i + 1}. </span>
-            <StyledInput type="text" defaultValue={ingredient} />
+            <StyledInput
+              type="text"
+              defaultValue={ingredient}
+              className="editIngredients"
+            />
           </InputContainer>
         );
       })}
@@ -46,7 +50,11 @@ const EditPane = props => {
         return (
           <InputContainer key={i + 1}>
             <span>{i > 10 ? i + 1 + ". " : i + 1 + ".            "} </span>
-            <StyledInput type="text" defaultValue={direction} />
+            <StyledInput
+              type="text"
+              defaultValue={direction}
+              className="editDirections"
+            />
           </InputContainer>
         );
       })}
@@ -72,8 +80,9 @@ const EditPane = props => {
             color: "white",
             marginRight: "10px"
           }}
+          onClick={props.cancel}
         >
-          DELETE
+          CANCEL
         </button>
         <button
           style={{
@@ -87,6 +96,7 @@ const EditPane = props => {
             padding: "5px 15px",
             color: "white"
           }}
+          onClick={props.edit}
         >
           EDIT
         </button>
