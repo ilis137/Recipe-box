@@ -160,7 +160,11 @@ class App extends Component {
     });
 
     this.modalContent = (
-      <AddPane add={this.handleAdd} cancel={this.handleCanceled} />
+      <AddPane
+        add={this.handleAdd}
+        cancel={this.handleCanceled}
+        show={this.state.showModal}
+      />
     );
   };
 
@@ -181,6 +185,41 @@ class App extends Component {
       />
     );
   };
+  handleAdd = () => {
+    let title = document.querySelector(".addTitle").value;
+    let ingredientsList = Array.from(
+      document.querySelectorAll(".addIngredients")
+    );
+    const ingredients = ingredientsList.map(ingredient => {
+      return ingredient.value;
+    });
+
+    let directionsList = Array.from(
+      document.querySelectorAll(".addDirections")
+    );
+
+    const directions = directionsList.map(direction => {
+      return direction.value;
+    });
+    if (directions != [] && ingredients != [] && title != "") {
+      const Recipe = {
+        title: title,
+        ingredients: ingredients,
+        directions: directions
+      };
+      let updatedRecipes = this.state.recipes;
+      updatedRecipes.push(Recipe);
+      console.log(updatedRecipes);
+      const showModal = !this.state.showModal;
+      this.setState({
+        ...this.state,
+        recipes: updatedRecipes,
+        showModal
+      });
+      localStorage.setItem(LSK, JSON.stringify(updatedRecipes));
+    }
+  };
+
   handleDeleteRecipe = e => {
     const recipes = this.state.recipes.filter(recipe => {
       return recipe.title.replace(/-/g, " ") !== this.state.currentRecipe;
