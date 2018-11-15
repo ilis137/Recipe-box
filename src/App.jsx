@@ -185,27 +185,18 @@ class App extends Component {
       />
     );
   };
-  handleAdd = () => {
-    let title = document.querySelector(".addTitle").value;
-    let ingredientsList = Array.from(
-      document.querySelectorAll(".addIngredients")
-    );
-    const ingredients = ingredientsList.map(ingredient => {
-      return ingredient.value;
-    });
+  handleAdd = data => {
+    console.log("in app");
 
-    let directionsList = Array.from(
-      document.querySelectorAll(".addDirections")
-    );
-
-    const directions = directionsList.map(direction => {
-      return direction.value;
-    });
-    if (directions != [] && ingredients != [] && title != "") {
+    if (
+      data.directions !== [] &&
+      data.ingredients !== [] &&
+      data.title !== ""
+    ) {
       const Recipe = {
-        title: title,
-        ingredients: ingredients,
-        directions: directions
+        title: data.title,
+        ingredients: data.ingredients,
+        directions: data.directions
       };
       let updatedRecipes = this.state.recipes;
       updatedRecipes.push(Recipe);
@@ -218,6 +209,7 @@ class App extends Component {
       });
       localStorage.setItem(LSK, JSON.stringify(updatedRecipes));
     }
+    this.modalContent = null;
   };
 
   handleDeleteRecipe = e => {
@@ -245,12 +237,13 @@ class App extends Component {
     const directions = directionsList.map(direction => {
       return direction.value;
     });
-
+    const title = document.querySelector(".editTitle").value;
     const selectedRecipe = this.state.recipes.find(recipe => {
       return recipe.title === this.state.currentRecipe.replace(/ /g, "-");
     });
     selectedRecipe.ingredients = ingredients;
     selectedRecipe.directions = directions;
+    selectedRecipe.title = title.replace(/ /g, "-");
     let updatedRecipes = [];
 
     this.state.recipes.forEach(recipe => {
@@ -260,12 +253,21 @@ class App extends Component {
         updatedRecipes.push(recipe);
       }
     });
+    let currentRecipe;
+    if (this.state.currentRecipe !== selectedRecipe.title) {
+      currentRecipe = selectedRecipe.title;
+    } else {
+      currentRecipe = this.state.currentRecipe;
+    }
+    console.log(updatedRecipes);
     const showModal = !this.state.showModal;
     this.setState({
       ...this.state,
       recipes: updatedRecipes,
+      currentRecipe,
       showModal
     });
+    this.modalContent = null;
     localStorage.setItem(LSK, JSON.stringify(updatedRecipes));
   };
 
@@ -273,6 +275,7 @@ class App extends Component {
     this.setState(prevstate => {
       return { showModal: !prevstate.showModal };
     });
+    this.modalContent = null;
   };
   render() {
     const currentRecipe = this.state.recipes.find(el => {

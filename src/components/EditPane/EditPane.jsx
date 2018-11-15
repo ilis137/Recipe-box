@@ -31,7 +31,11 @@ const EditPane = props => {
   return (
     <div>
       <StyledTitle>Title</StyledTitle>
-      <StyledTitleInput type="text" defaultValue={props.recipe.title} />
+      <StyledTitleInput
+        type="text"
+        className="editTitle"
+        defaultValue={props.recipe.title.replace(/-/g, " ")}
+      />
       <StyledTitle>ingredients</StyledTitle>
       {props.recipe.ingredients.map((ingredient, i) => {
         return (
