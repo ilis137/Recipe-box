@@ -45,62 +45,116 @@ const AddInput = styled.div`
 `;
 class AddPane extends Component {
   state = {
-    noOfIngredients: 1,
-    noOfDirections: 1
+    title: "",
+    ingredients: [""],
+    directions: [""]
   };
+
   handleAdd = () => {
-    this.props.add();
+    console.log(this.state);
+    this.props.add(this.state);
     this.setState({
-      noOfIngredients: 1,
-      noOfDirections: 1
+      ...this.state,
+      title: "",
+      ingredients: [""],
+      directions: [""]
     });
   };
   handleIncreaseIngredients = () => {
-    const NOI = this.state.noOfIngredients;
+    let ingredients = this.state.ingredients;
+    ingredients.push("");
     this.setState({
       ...this.state,
-      noOfIngredients: NOI + 1
+      ingredients
     });
   };
 
   handleIncreaseDirections = () => {
-    const NOD = this.state.noOfDirections;
+    let directions = this.state.directions;
+    directions.push("");
     this.setState({
       ...this.state,
-      noOfDirections: NOD + 1
+      directions
+    });
+  };
+  handleChangeIngredient = e => {
+    const index = e.target.dataset.key;
+    let ingredients = this.state.ingredients;
+    ingredients[index] = e.target.value;
+    console.log(ingredients);
+    this.setState({
+      ...this.state,
+      ingredients
+    });
+  };
+  handleChangeDirection = e => {
+    const index = e.target.dataset.key;
+    let directions = this.state.directions;
+
+    directions[index] = e.target.value;
+    console.log(directions);
+    this.setState({
+      ...this.state,
+      directions
+    });
+  };
+  handleChangeTitle = e => {
+    const title = e.target.value;
+    console.log(title);
+    this.setState({
+      ...this.state,
+      title
     });
   };
   handleCancel = () => {
     this.setState({
-      noOfIngredients: 1,
-      noOfDirections: 1
+      title: "",
+      ingredients: [""],
+      directions: [""]
     });
     this.props.cancel();
   };
   render() {
     let ingredientInput = [];
-    for (let i = 0; i < this.state.noOfIngredients; i++) {
-      ingredientInput.push(
-        <InputContainer key={i + 1}>
-          <span>.{i + 1} .</span>
-          <StyledInput type="text" className="addIngredients" />
-        </InputContainer>
-      );
-    }
-
-    let directionsInput = [];
-    for (let i = 0; i < this.state.noOfDirections; i++) {
-      directionsInput.push(
+    ingredientInput = this.state.ingredients.map((ingredient, i) => {
+      return (
         <InputContainer key={i + 1}>
           <span>{i + 1} .</span>
-          <StyledInput type="text" className="addDirections" />
+          <StyledInput
+            type="text"
+            className="addIngredients"
+            value={ingredient}
+            data-key={i}
+            onChange={e => this.handleChangeIngredient(e)}
+          />
         </InputContainer>
       );
-    }
+    });
+
+    let directionsInput = [];
+    directionsInput = this.state.directions.map((direction, i) => {
+      return (
+        <InputContainer key={i + 1}>
+          <span>{i + 1} .</span>
+          <StyledInput
+            type="text"
+            className="addDirections"
+            data-key={i}
+            value={direction}
+            onChange={this.handleChangeDirection}
+          />
+        </InputContainer>
+      );
+    });
     return (
       <div>
         <StyledTitle>Title</StyledTitle>
-        <StyledTitleInput type="text" className="addTitle" />
+        <StyledTitleInput
+          type="text"
+          className="addTitle"
+          onChange={this.handleChangeTitle}
+          value={this.state.title}
+        />
         <StyledTitle>Ingredients</StyledTitle>
 
         {ingredientInput}
